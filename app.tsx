@@ -612,7 +612,7 @@ function NewPinnedThreadButton() {
     btn.title = hasProject ? "New pinned thread" : "No project available";
     btn.disabled = !hasProject;
     btn.style.cssText =
-      "flex-shrink:0;margin:0;border:0;background:transparent;padding:0;font:inherit;font-size:0.875rem;font-weight:500;line-height:1;color:var(--muted-foreground);cursor:pointer;opacity:" +
+      "flex-shrink:0;position:relative;z-index:50;margin:0;border:0;background:transparent;padding:0 2px;font:inherit;font-size:0.875rem;font-weight:500;line-height:1;color:var(--muted-foreground);cursor:pointer;-webkit-app-region:no-drag;app-region:no-drag;opacity:" +
       (hasProject ? "1" : "0.4");
     btn.onclick = () => setComposing(!(composingCount > 0));
     parent.appendChild(btn);
