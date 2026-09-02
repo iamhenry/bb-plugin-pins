@@ -1,0 +1,34 @@
+{
+  "name": "bb-plugin-pins",
+  "version": "0.1.0",
+  "license": "MIT",
+  "description": "Horizontal niri-style strip of pinned BB threads.",
+  "type": "module",
+  "engines": {
+    "bb": ">=0.39 <1.0.0",
+    "bbPluginSdk": ">=0.4.14"
+  },
+  "bb": {
+    "name": "Pins",
+    "description": "Pinned threads in a horizontal live-chat strip. Drag headers to reorder.",
+    "branding": {
+      "icon": "Pin"
+    },
+    "server": "./server.ts",
+    "app": "./app.tsx"
+  },
+  "scripts": {
+    "build": "bb plugin build .",
+    "typecheck": "tsc --noEmit",
+    "test": "node --experimental-strip-types --test order.test.ts"
+  },
+  "dependencies": {
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@get-bb/plugin-sdk": "0.4.24",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "typescript": "^5.7.0"
+  }
+}

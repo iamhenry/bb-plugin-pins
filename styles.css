@@ -1,0 +1,170 @@
+/* Thread-row chrome copied from bb-plugin-dashboard-sidebar. Panels sit on
+   --background, not the sidebar surface, so `--sidebar` token uses are mapped
+   to --background / --border here to keep the status-dot cutout working. */
+
+.pins-status-wrap {
+  position: relative;
+  z-index: 1;
+  flex: none;
+  width: 0.8rem;
+  height: 0.8rem;
+}
+
+.pins-provider {
+  display: grid;
+  width: 0.72rem;
+  height: 0.72rem;
+  place-items: center;
+  overflow: hidden;
+  background: transparent;
+  color: var(--muted-foreground);
+  font-size: 0.48rem;
+  font-weight: 700;
+}
+
+.pins-provider-logo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--pins-provider-logo-light, var(--muted-foreground));
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+}
+
+.dark .pins-provider-logo {
+  background: var(--pins-provider-logo-dark, var(--muted-foreground));
+}
+
+.pins-status {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 0.3rem;
+  height: 0.3rem;
+  border: 1px solid var(--background);
+  border-radius: 999px;
+  background: var(--muted-foreground);
+}
+
+.pins-status-runtime,
+.pins-status-workflow,
+.pins-status-goal,
+.pins-status-plan-mode,
+.pins-status-background-agent,
+.pins-status-background-command,
+.pins-status-working-draft,
+.pins-status-draft {
+  /* native bb renders active states with --success (green), not --primary (grayscale in dark) */
+  background: var(--success);
+}
+
+.pins-status-waiting-for-input { background: var(--warning); }
+.pins-status-unread-error { background: var(--destructive); }
+.pins-status-unread-success { background: var(--success-foreground); }
+
+.pins-diff {
+  flex: none;
+  border: 1px solid var(--border);
+  border-radius: 0.35rem;
+  padding: 0.02rem 0.24rem;
+  background: color-mix(in srgb, var(--background) 75%, transparent);
+  font-size: 0.64rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.pins-diff b { color: var(--success); font-style: normal; }
+.pins-diff i { color: var(--destructive); font-style: normal; }
+
+.pins-meta {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  height: 1rem;
+  gap: 0.28rem;
+  color: var(--muted-foreground);
+  font-size: 0.69rem;
+  font-weight: 400;
+  line-height: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.pins-meta-lead {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pins-meta-project {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pins-meta-time { flex: none; }
+.pins-meta-attention { flex: none; }
+
+.pins-meta-project + .pins-meta-lead::before,
+.pins-meta-project + .pins-meta-attention::before,
+.pins-meta-project + .pins-meta-time::before,
+.pins-meta-lead + .pins-meta-attention::before,
+.pins-meta-lead + .pins-meta-time::before,
+.pins-meta-attention + .pins-meta-time::before {
+  content: "·";
+  margin-right: 0.28rem;
+  color: var(--muted-foreground);
+}
+
+.pins-branch {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pins-active { color: var(--primary); font-variant-numeric: tabular-nums; }
+.pins-attention { color: var(--warning); }
+
+.pins-pr {
+  position: relative;
+  z-index: 2;
+  color: inherit;
+  text-decoration: none;
+  pointer-events: auto;
+}
+
+.pins-pr-open { color: var(--success); }
+.pins-pr-draft, .pins-pr-closed, .pins-pr-merged { color: var(--muted-foreground); }
+
+.pins-working .pins-title {
+  background: linear-gradient(
+    105deg,
+    var(--foreground) 24%,
+    var(--primary) 44%,
+    var(--foreground) 64%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  background-size: 240% 100%;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: pins-shimmer 2.8s linear infinite;
+}
+
+@keyframes pins-shimmer {
+  from { background-position: 140% 0; }
+  to { background-position: -140% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pins-working .pins-title {
+    animation: none;
+    background: none;
+    color: var(--foreground);
+    -webkit-text-fill-color: currentColor;
+  }
+}
