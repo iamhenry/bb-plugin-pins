@@ -11,5 +11,5 @@
     "noEmit": true,
     "skipLibCheck": true
   },
-  "include": ["app.tsx", "contract.ts", "order.ts", "order.test.ts", "server.ts", "styles.css"],
+  "include": ["app.tsx", "contract.ts", "order.ts", "order.test.ts", "server.ts", "server.test.ts", "styles.css"],
 }
