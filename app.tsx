@@ -7,6 +7,7 @@ import {
   experimental_useSidebarThreads,
   ThreadChat,
   useBbContext,
+  useBbNavigate,
   useRpc,
 } from "@get-bb/plugin-sdk/app";
 import type { PluginSidebarThread } from "@get-bb/plugin-sdk";
@@ -444,6 +445,7 @@ function PinColumn({
     return () => observer.disconnect();
   }, [strip]);
 
+  const navigate = useBbNavigate();
   const working = thread ? isWorking(thread) : false;
   const elapsedFrom = thread ? thread.updatedAt : now;
   const title = thread ? thread.title?.trim() || thread.titleFallback?.trim() || "Untitled" : pin.title;
@@ -485,6 +487,18 @@ function PinColumn({
               <b>+{git.insertions}</b> <i>−{git.deletions}</i>
             </span>
           ) : null}
+          <button
+            type="button"
+            className="shrink-0 text-xs font-normal text-muted-foreground hover:text-foreground"
+            title="Open thread"
+            onPointerDown={(event) => event.stopPropagation()}
+            onClick={(event) => {
+              event.stopPropagation();
+              navigate.toThread(pin.threadId);
+            }}
+          >
+            Open
+          </button>
           <button
             type="button"
             className="shrink-0 text-xs font-normal text-muted-foreground hover:text-foreground"
