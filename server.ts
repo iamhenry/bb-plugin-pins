@@ -34,17 +34,8 @@ export default function plugin(bb: BbPluginApi) {
     },
     async create(request) {
       const req = request as Parameters<typeof bb.sdk.threads.spawn>[0];
-      const sources = req.executionInputSources;
-      // ponytail: BB's embedded composer can omit provider provenance; remove after get-bb/bb#2974.
-      const spawnRequest =
-        req.providerId && sources && !sources.providerId
-          ? {
-              ...req,
-              executionInputSources: { ...sources, providerId: "explicit" as const },
-            }
-          : req;
       const thread = await bb.sdk.threads.spawn({
-        ...spawnRequest,
+        ...req,
         origin: "plugin",
       });
       await bb.sdk.threads.pin({ threadId: thread.id });

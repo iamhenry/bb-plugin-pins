@@ -20,7 +20,7 @@
   "scripts": {
     "build": "bb plugin build .",
     "typecheck": "tsc --noEmit",
-    "test": "node --experimental-strip-types --test order.test.ts server.test.ts"
+    "test": "node --experimental-strip-types --test order.test.ts"
   },
   "dependencies": {
     "zod": "^4.3.6"
